@@ -4,7 +4,37 @@ const {Screen} = require('terminfo')
 
 function readSlides() {
   const slide_dir = path.join(__dirname, 'slides')
-  return fs.readdirSync(slide_dir).map(file => fs.readFileSync(path.join(slide_dir, file)).toString())
+  return fs.readdirSync(slide_dir).map(file => {
+    const data = fs.readFileSync(path.join(slide_dir, file)).toString('utf8').replace(/^\ufeff/,'')
+    if (file.endsWith('.json')) {
+      const lines = JSON.parse(data)
+      const chars = []
+      for (const line of lines) {
+        for (const char of line) {
+          if (char.character !== " " || char.backgroundId !== "background") {
+            chars.push({
+              x: char.point.x,
+              y: char.point.y,
+              chr: char.character,
+              bg: char.backgroundId === 'background' ? null : char.backgroundId - 1,
+              fg: char.foregroundId === 'foreground' ? null : char.foregroundId - 1,
+            })
+          }
+        }
+      }
+      return chars
+    } else {
+      const chars = []
+      const lines = data.split('\n')
+      for (let y = 0; y < lines.length; y++) {
+        const line = lines[y]
+        for (let x = 0; x < line.length; x++) {
+          chars.push({x, y, chr: line[x]})
+        }
+      }
+      return chars
+    }
+  })
 }
 
 const slides = readSlides()
@@ -21,10 +51,8 @@ let particles = []
 
 function draw() {
   screen.clear()
-  const lines = slides[slideIdx].split(/\n/)
-  for (let y = 0; y < lines.length; y++) {
-    if (lines[y].length)
-      screen.put(0, y, lines[y])
+  for (const c of slides[slideIdx]) {
+    screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg})
   }
 
   for (const p of particles) {
