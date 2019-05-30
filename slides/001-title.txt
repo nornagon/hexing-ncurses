@@ -1,4 +1,3 @@
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
 
           ::   .: .,::::::    .,::      .:::::::.    :::.  .,-:::::/
          ,;;   ;;,;;;;''''    `;;;,  .,;; ;;;`;;;;,  `;;;,;;-'````'
@@ -23,29 +22,3 @@
                  '  '        /` |         /` |
                              `--'         `--'
 
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-
-
-  Programmers very quickly encounter the TERMINAL
-
-
-     user@host$ _
-
-
-           which is weird!  Since most people who use a computer never see it.
-
-
-
-
-     If you've written code, you've almost certainly written "Hello World".
-                                    (which probably wrote to the terminal.)
-
-
-
-
-
-
-
-
-
-12345678901234567890123456789012345678901234567890123456789012345678901234567890

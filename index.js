@@ -5,9 +5,9 @@ const {Screen} = require('terminfo')
 function readSlides() {
   const slide_dir = path.join(__dirname, 'slides')
   return fs.readdirSync(slide_dir).map(file => {
-    const data = fs.readFileSync(path.join(slide_dir, file)).toString('utf8').replace(/^\ufeff/,'')
+    const data = fs.readFileSync(path.join(slide_dir, file))
     if (file.endsWith('.json')) {
-      const lines = JSON.parse(data)
+      const lines = JSON.parse(data.toString('utf8').replace(/^\ufeff/,''))
       const chars = []
       for (const line of lines) {
         for (const char of line) {
@@ -22,17 +22,29 @@ function readSlides() {
           }
         }
       }
-      return chars
+      return () => {
+        for (const c of chars) {
+          screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg})
+        }
+      }
+    } else if (file.endsWith('.png')) {
+      return () => {
+        screen.putImage(0, 0, data)
+      }
     } else {
       const chars = []
-      const lines = data.split('\n')
+      const lines = data.toString('utf8').split('\n')
       for (let y = 0; y < lines.length; y++) {
         const line = lines[y]
         for (let x = 0; x < line.length; x++) {
           chars.push({x, y, chr: line[x]})
         }
       }
-      return chars
+      return () => {
+        for (const c of chars) {
+          screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg})
+        }
+      }
     }
   })
 }
@@ -51,9 +63,12 @@ let particles = []
 
 function draw() {
   screen.clear()
+  slides[slideIdx]()
+    /*
   for (const c of slides[slideIdx]) {
     screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg})
   }
+  */
 
   for (const p of particles) {
     screen.put(p.x, p.y, p.chr)
