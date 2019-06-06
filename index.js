@@ -11,7 +11,7 @@ function readSlides() {
       const chars = []
       for (const line of lines) {
         for (const char of line) {
-          if (char.character !== " " || char.backgroundId !== "background") {
+          if (char.character && (char.character !== " " || char.backgroundId !== "background")) {
             chars.push({
               x: char.point.x,
               y: char.point.y,
