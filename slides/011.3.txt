@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+
+               |                          _)          _|        
+               __|   _ \   __|  __ `__ \   |  __ \   |     _ \  
+               |     __/  |     |   |   |  |  |   |  __|  (   | 
+              \__| \___| _|    _|  _|  _| _| _|  _| _|   \___/  
+
+
+
+         o  stored in /usr/share/terminfo/<first_letter>/<term_name>
+
+         o  tells you how to control the terminal
+
+         o  has a programming language in it (!!)
+
+
+

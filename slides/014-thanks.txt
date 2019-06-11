@@ -1,0 +1,25 @@
+
+
+           ,., ,.
+          (   Y  )
+           \    /      _/_ /              /       /
+            \  /       /  /_  __.  ____  /_  _   / 
+             `/       <__/ /_(_/|_/ / <_/ <_/_)_'  
+                                               o   
+
+
+       Follow me on Mastodon if you're into that sort of thing
+
+                @nornagon@social.coop
+
+
+       Source code for this talk is available here:
+
+                https://github.com/nornagon/hexing-ncurses
+
+
+
+          Go read some code. Nothing is beyond your grasp :)
+
+
+

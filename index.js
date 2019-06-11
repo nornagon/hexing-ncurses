@@ -18,18 +18,27 @@ function readSlides() {
               chr: char.character,
               bg: char.backgroundId === 'background' ? null : char.backgroundId - 1,
               fg: char.foregroundId === 'foreground' ? null : char.foregroundId - 1,
+              bold: !!char.bold,
+              underline: !!char.underline,
             })
           }
         }
       }
       return () => {
         for (const c of chars) {
-          screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg})
+          screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg, bold: c.bold, underline: c.underline})
         }
       }
     } else if (file.endsWith('.png')) {
       return () => {
         screen.putImage(0, 0, data)
+        if (file === '010.1-bjoy-ugh.png') {
+          screen.put(60, 10, '   _____ ')
+          screen.put(60, 11, '  < ugh >')
+          screen.put(60, 12, '   ----- ')
+          screen.put(60, 13, ' /')
+          screen.put(60, 14, '/')
+        }
       }
     } else {
       const chars = []
