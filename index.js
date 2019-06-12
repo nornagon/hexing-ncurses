@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const {Screen} = require('terminfo')
+const {drawCube} = require('terminfo/demo/3d')
 
 function readSlides() {
   const slide_dir = path.join(__dirname, 'slides')
@@ -40,6 +41,17 @@ function readSlides() {
           screen.put(60, 14, '/')
         }
       }
+    } else if (file.endsWith('.cube')) {
+      const rot = [0,0,0]
+      const f = () => {
+        const dt = 1000 / 30
+        rot[0] += dt / 800
+        rot[1] += dt / 900
+        rot[2] += dt / 700
+        drawCube(screen, rot)
+      }
+      f.animated = true
+      return f
     } else {
       const chars = []
       const lines = data.toString('utf8').split('\n')
@@ -97,7 +109,7 @@ function update() {
 
 setInterval(() => {
   update()
-  if (particles.length) {
+  if (particles.length || slides[slideIdx].animated) {
     draw()
   }
 }, 1000/30)
