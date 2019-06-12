@@ -77,6 +77,7 @@ screen.start()
 screen.setCursorVisible(false)
 screen.setMouseEnabled(true)
 process.on('exit', () => { screen.stop() })
+process.on('SIGWINCH', () => draw())
 
 let slideIdx = 0
 
@@ -85,11 +86,6 @@ let particles = []
 function draw() {
   screen.clear()
   slides[slideIdx]()
-    /*
-  for (const c of slides[slideIdx]) {
-    screen.put(c.x, c.y, c.chr, {fg: c.fg, bg: c.bg})
-  }
-  */
 
   for (const p of particles) {
     screen.put(p.x, p.y, p.chr)
@@ -115,7 +111,7 @@ setInterval(() => {
 }, 1000/30)
 
 screen.on('key', (b) => {
-  if (b[0] === 0x3) {
+  if (b[0] === 0x3 || b[0] === 113) { // ^C, q
     process.exit()
   } else if (b.toString() === '\x1b[D') { // left
     slideIdx = Math.max(0, slideIdx - 1)
