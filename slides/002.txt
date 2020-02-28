@@ -1,18 +1,18 @@
 
 
-  Programmers very quickly encounter the TERMINAL
+  Programmers very quickly encounter the terminal:
 
 
      user@host$ _
 
 
-           which is weird!  Since most people who use a computer never see it.
+   If you've written code, you've probably written something like this:
 
 
+     user@host$ ./hello
+     Hello, world!
+     user@host$ _
 
-
-     If you've written code, you've almost certainly written "Hello World".
-                                    (which probably wrote to the terminal.)
 
 
 

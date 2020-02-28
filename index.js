@@ -33,13 +33,6 @@ function readSlides() {
     } else if (file.endsWith('.png')) {
       return () => {
         screen.putImage(0, 0, data)
-        if (file === '010.1-bjoy-ugh.png') {
-          screen.put(60, 10, '   _____ ')
-          screen.put(60, 11, '  < ugh >')
-          screen.put(60, 12, '   ----- ')
-          screen.put(60, 13, ' /')
-          screen.put(60, 14, '/')
-        }
       }
     } else if (file.endsWith('.cube')) {
       const rot = [0,0,0]
@@ -119,14 +112,14 @@ screen.on('key', (b) => {
     slideIdx = Math.min(slides.length - 1, slideIdx + 1)
   } else {
   }
-  const m = /^\x1b\[M(.)(.)(.)$/.exec(b)
+  const m = /^\x1b\[M(.)(.)(.)$/.exec(b.toString())
   if (m) {
     const [,,,btn, cx, cy] = b
     const x = cx - 32 - 1
     const y = cy - 32 - 1
     const btnsDown = btn & 0x23
-    if (btnsDown === 32) {
-      for (let i = 0; i < 4 + Math.random() * 5; i++)  {
+    if (btnsDown === 32 /* click */ || btn === 64 /* drag */) {
+      for (let i = 0; i < 4 + Math.random() * 2; i++)  {
         particles.push({
           x, y,
           vx: (Math.random() * 2 - 1) * 1.5,
