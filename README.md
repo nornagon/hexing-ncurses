@@ -13,3 +13,8 @@ $ cd hexing-ncurses
 $ npm link terminfo
 $ node .
 ```
+
+Many of the slides were created with [Charaster][], by [@Technicism][].
+
+[Charaster]: https://technicism.github.io/Charaster/
+[Technicism]: https://github.com/Technicism
