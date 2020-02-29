@@ -81,9 +81,11 @@ function draw() {
   slides[slideIdx]()
 
   for (const p of particles) {
-    screen.put(p.x, p.y, p.chr)
+    screen.put(p.x, p.y, particleChars[p.chrIdx])
   }
 }
+
+const particleChars = '.oO@Oo.'
 
 function update() {
   const dt = 0.5
@@ -92,6 +94,9 @@ function update() {
     p.x += p.vx * dt
     p.y += p.vy * dt
     p.vy += 0.1 * dt
+    if (Math.random() < 0.0) {
+      p.chrIdx = (p.chrIdx + 1) % particleChars.length
+    }
   }
   particles = particles.filter(p => p.x >= 0 && p.x < width && p.y >= 0 && p.y < height)
 }
@@ -120,11 +125,13 @@ screen.on('key', (b) => {
     const btnsDown = btn & 0x23
     if (btnsDown === 32 /* click */ || btn === 64 /* drag */) {
       for (let i = 0; i < 4 + Math.random() * 2; i++)  {
+        const chrIdx = (Math.random()*particleChars.length)|0
         particles.push({
           x, y,
           vx: (Math.random() * 2 - 1) * 1.5,
           vy: Math.random() * 2 - 1,
-          chr: '*'
+          chrIdx,
+          fg: (Math.random()*16)|0
         })
       }
     }
