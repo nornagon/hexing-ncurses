@@ -81,7 +81,7 @@ function draw() {
   slides[slideIdx]()
 
   for (const p of particles) {
-    screen.put(p.x, p.y, particleChars[p.chrIdx])
+    screen.put(p.x, p.y, particleChars[p.chrIdx], {fg: p.fg})
   }
 }
 
